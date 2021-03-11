@@ -21,7 +21,7 @@ app.get('/concept/', (req, res) => {
   })
 })
 
-app.put('/api/concept/:id', (req, res) => {
+app.put('/admin/concept/:id', (req, res) => {
   const idConcept = req.params.id
   const newConcept = req.body
 
