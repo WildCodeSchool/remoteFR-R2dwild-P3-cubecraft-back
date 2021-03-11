@@ -10,7 +10,7 @@ app.use('/slider', routes.slider)
 
 app.listen(4242, () => console.log('Express server is running'))
 
-app.get('/concepts/', (req, res) => {
+app.get('/concept/', (req, res) => {
   connection.query('SELECT * from concept', (err, results) => {
     if (err) {
       console.log(err)
@@ -19,4 +19,23 @@ app.get('/concepts/', (req, res) => {
       res.status(200).json(results)
     }
   })
+})
+
+app.put('/api/concept/:id', (req, res) => {
+  const idConcept = req.params.id
+  const newConcept = req.body
+
+  connection.query(
+    'UPDATE concept SET ? WHERE id = ?',
+    [newConcept, idConcept],
+    (err, results) => {
+      if (err) {
+        console.log(err)
+
+        res.status(500).send('Error updating a concept')
+      } else {
+        res.status(200).send('User updated successfully 🎉')
+      }
+    }
+  )
 })
