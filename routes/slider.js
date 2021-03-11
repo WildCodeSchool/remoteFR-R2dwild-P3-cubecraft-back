@@ -4,7 +4,7 @@ const connection = require('../config')
 const router = express.Router()
 
 router.get(`/`, (request, res) => {
-  connection.query('SELECT * from Slider', (err, results) => {
+  connection.query('SELECT * from slider', (err, results) => {
     if (err) {
       res.status(500).send(`Error retrieving data`)
     } else {
