@@ -13,21 +13,21 @@ router.get('/', (request, res) => {
   })
 })
 
-router.post("/:id", (req, res) => {
-  const { Firstname, Lastname, Jobname} = req.body;
+router.post('/:id', (req, res) => {
+  const { Firstname, Lastname, Jobname } = req.body
   connection.query(
-    "INSERT INTO profile (Firstname, Lastname, Jobname) VALUES(?, ?, ?)",
-    [Firstname, Lastname, Email],
+    'INSERT INTO profile (Firstname, Lastname, Jobname) VALUES(?, ?, ?)',
+    [Firstname, Lastname, Jobname],
     (err, results) => {
       if (err) {
-        console.log(err);
-        res.status(500).send("Error saving a user");
+        console.log(err)
+        res.status(500).send('Error saving a user')
       } else {
-        res.status(200).send("Successfully saved");
+        res.status(200).send('Successfully saved')
       }
     }
-  );
-});
+  )
+})
 
 // app.put("apropos/:id", (req, res) => {
 //   // We get the ID from the url:
