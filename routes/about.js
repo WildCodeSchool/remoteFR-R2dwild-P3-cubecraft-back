@@ -3,7 +3,7 @@ const connection = require('../config')
 
 const router = express.Router()
 
-router.get('/about', (request, res) => {
+router.get('/', (request, res) => {
   connection.query('SELECT * from profile', (err, results) => {
     if (err) {
       res.status(500).send(`Error retrieving data`)
@@ -13,7 +13,7 @@ router.get('/about', (request, res) => {
   })
 })
 
-router.post("/about/:id", (req, res) => {
+router.post("/:id", (req, res) => {
   const { Firstname, Lastname, Jobname} = req.body;
   connection.query(
     "INSERT INTO profile (Firstname, Lastname, Jobname) VALUES(?, ?, ?)",
