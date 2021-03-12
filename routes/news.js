@@ -32,4 +32,41 @@ router.put('/:id', (req, res) => {
   )
 })
 
+router.delete('/:id', (req, res) => {
+  const idNews = req.params.id
+
+  connection.query(
+    'DELETE FROM news WHERE id = ?',
+    [idNews],
+    (err, results) => {
+      if (err) {
+        console.log(err)
+        res.status(500).send('😱 Error deleting an news')
+      } else {
+        res.status(200).send('🎉 news deleted!')
+      }
+    }
+  )
+})
+
+router.post('/', (req, res) => {
+  const { link, text, title, photo_id } = req.body
+  console.log(link, text, title, photo_id)
+  connection.query(
+    'INSERT INTO news( Link, Text, Title, Photo_id) VALUES(?, ?, ?, ?)',
+
+    [link, text, title, photo_id],
+
+    (err, results) => {
+      if (err) {
+        console.log(err)
+
+        res.status(500).send('Error saving a news')
+      } else {
+        res.status(200).send('Successfully saved')
+      }
+    }
+  )
+})
+
 module.exports = router
