@@ -51,7 +51,6 @@ router.delete('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
   const { link, text, title, photo_id } = req.body
-  console.log(link, text, title, photo_id)
   connection.query(
     'INSERT INTO news( Link, Text, Title, Photo_id) VALUES(?, ?, ?, ?)',
 
