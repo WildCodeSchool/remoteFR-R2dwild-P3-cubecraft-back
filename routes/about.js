@@ -1,17 +1,7 @@
 const express = require('express')
 const connection = require('../config')
-const { check, validationResult } = require('express-validator')
 
 const router = express.Router()
-
-const userValidationMiddlewares = [
-  // email must be valid
-  check('email').isEmail(),
-  // password must be at least 8 chars long
-  check('password').isLength({ min: 8 }),
-  // let's assume a name should be 2 chars long
-  check('name').isLength({ min: 2 })
-]
 
 router.get('/', (request, res) => {
   connection.query('SELECT * from Profile', (err, results) => {
@@ -23,36 +13,59 @@ router.get('/', (request, res) => {
   })
 })
 
+router.get('/:id', (req, res) => {
+  const idUser = req.params.id
+  connection.query(
+    'SELECT * from profile WHERE id = ?',
+    [idUser],
+    (err, results) => {
+      if (err) {
+        res.status(500).send(`Error retrieving data`)
+      } else {
+        res.status(200).json(results)
+      }
+    }
+  )
+})
+
 router.post('/', (req, res) => {
-  connection.query('INSERT INTO profile SET ?', req.body, (err, results) => {
+  connection.query('INSERT INTO profile SET ?', req.body, err => {
     if (err) {
       console.log(err)
-      res.status(500).send('Error saving a user')
+      res.status(500).send('Error saving a profile')
     } else {
       res.status(200).send('Successfully saved')
     }
   })
 })
 
-router.put('/:id', userValidationMiddlewares, (req, res) => {
-  const errors = validationResult(req)
-  if (!errors.isEmpty()) {
-    return res.status(422).json({ errors: errors.array() })
-  }
+router.put('/:id', (req, res) => {
   const idUser = req.params.id
-  const newUser = ({ Firstname, Lastname, Jobname } = req.body)
+  const newUser = req.body
 
-  return connection.query(
-    'UPDATE users SET ? WHERE id = ?',
+  connection.query(
+    'UPDATE profile SET ? WHERE id = ?',
     [newUser, idUser],
     err => {
       if (err) {
-        res.status(500).send('Error updating a user')
+        res.status(500).send('Error updating a profile')
       } else {
-        res.status(200).send('User updated successfully 🎉')
+        res.status(200).send('Profile updated successfully 🎉')
       }
     }
   )
+})
+
+router.delete('/:id', (req, res) => {
+  const idUser = req.params.id
+
+  connection.query('DELETE FROM profile WHERE id = ?', [idUser], err => {
+    if (err) {
+      res.status(500).send('Error deleted a profile')
+    } else {
+      res.status(200).send('Profile deleted successfully 🎉')
+    }
+  })
 })
 
 module.exports = router
