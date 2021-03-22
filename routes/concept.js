@@ -23,8 +23,6 @@ router.put('/:id', (req, res) => {
     [newConcept, idConcept],
     (err, results) => {
       if (err) {
-        console.log(err)
-
         res.status(500).send('Error updating a concept')
       } else {
         res.status(200).send('Concept updated successfully 🎉')
