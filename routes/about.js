@@ -31,7 +31,6 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
   connection.query('INSERT INTO profile SET ?', req.body, err => {
     if (err) {
-      console.log(err)
       res.status(500).send('Error saving a profile')
     } else {
       res.status(200).send('Successfully saved')

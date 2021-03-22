@@ -6,8 +6,6 @@ const router = express.Router()
 router.get('/', (req, res) => {
   connection.query('SELECT * from particularProducts', (err, results) => {
     if (err) {
-      console.log(err)
-
       res.status(500).send('Error retrieving data')
     } else {
       res.status(200).json(results)
@@ -21,7 +19,6 @@ router.get('/:id', (req, res) => {
     [req.params.id],
     (err, results) => {
       if (err) {
-        console.log(err)
         res.status(500).send('Error retrieving data')
       } else {
         if (results.length === 0) res.status(404).send('404 product not found')
@@ -38,7 +35,6 @@ router.put('/:id', (req, res) => {
   // check if the photo is in the database
   connection.query('SELECT * from photo', (err, results) => {
     if (err) {
-      console.log(err)
       res.status(500).send('Error retrieving data')
     } else {
       if (!results.some(photo => photo.Id === parseInt(photo_id)))
@@ -49,7 +45,6 @@ router.put('/:id', (req, res) => {
           [newProduct, id],
           (err, results) => {
             if (err) {
-              console.log(err)
               res.status(500).send('Error updating a concept')
             } else {
               res.status(200).send('Concept updated successfully 🎉')
@@ -68,7 +63,6 @@ router.delete('/:id', (req, res) => {
     [idProduct],
     (err, results) => {
       if (err) {
-        console.log(err)
         res.status(500).send('😱 Error deleting an product')
       } else {
         res.status(200).send('🎉 product deleted!')
@@ -86,8 +80,6 @@ router.post('/', (req, res) => {
 
     (err, results) => {
       if (err) {
-        console.log(err)
-
         res.status(500).send('Error saving a product')
       } else {
         res.status(200).send('Successfully saved')
