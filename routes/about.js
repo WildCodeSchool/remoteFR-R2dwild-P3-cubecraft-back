@@ -4,7 +4,7 @@ const connection = require('../config')
 const router = express.Router()
 
 router.get('/', (request, res) => {
-  connection.query('SELECT * from profile', (err, results) => {
+  connection.query('SELECT * from Profile', (err, results) => {
     if (err) {
       res.status(500).send(`Error retrieving data`)
     } else {
@@ -13,42 +13,58 @@ router.get('/', (request, res) => {
   })
 })
 
-router.post('/:id', (req, res) => {
-  const { Firstname, Lastname, Jobname } = req.body
+router.get('/:id', (req, res) => {
+  const idUser = req.params.id
   connection.query(
-    'INSERT INTO profile (Firstname, Lastname, Jobname) VALUES(?, ?, ?)',
-    [Firstname, Lastname, Jobname],
+    'SELECT * from profile WHERE id = ?',
+    [idUser],
     (err, results) => {
       if (err) {
-        console.log(err)
-        res.status(500).send('Error saving a user')
+        res.status(500).send(`Error retrieving data`)
       } else {
-        res.status(200).send('Successfully saved')
+        res.status(200).json(results)
       }
     }
   )
 })
 
-// app.put("apropos/:id", (req, res) => {
-//   // We get the ID from the url:
-//   const idUser = req.params.id;
+router.post('/', (req, res) => {
+  connection.query('INSERT INTO profile SET ?', req.body, err => {
+    if (err) {
+      res.status(500).send('Error saving a profile')
+    } else {
+      res.status(200).send('Successfully saved')
+    }
+  })
+})
 
-//   // We get the data from the req.body
-//   const {Firstname, Lastname, Jobname} = req.body;
+router.put('/:id', (req, res) => {
+  const idUser = req.params.id
+  const newUser = req.body
 
-//   // We send a UPDATE query to the DB
-//   connection.query(
-//     "UPDATE users SET ? WHERE id = ?",
-//     [newUser, idUser],
-//     (err, results) => {
-//       if (err) {
-//         console.log(err);
-//         res.status(500).send("Error updating a user");
-//       } else {
-//         res.status(200).send("User updated successfully 🎉");
-//       }
-//     }
-//   );
-// });
+  connection.query(
+    'UPDATE profile SET ? WHERE id = ?',
+    [newUser, idUser],
+    err => {
+      if (err) {
+        res.status(500).send('Error updating a profile')
+      } else {
+        res.status(200).send('Profile updated successfully 🎉')
+      }
+    }
+  )
+})
+
+router.delete('/:id', (req, res) => {
+  const idUser = req.params.id
+
+  connection.query('DELETE FROM profile WHERE id = ?', [idUser], err => {
+    if (err) {
+      res.status(500).send('Error deleted a profile')
+    } else {
+      res.status(200).send('Profile deleted successfully 🎉')
+    }
+  })
+})
 
 module.exports = router
