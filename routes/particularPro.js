@@ -15,6 +15,36 @@ router.get('/', (req, res) => {
   })
 })
 
+router.get('/part', (req, res) => {
+  connection.query(
+    'SELECT * from particularProducts WHERE Particular_Pro=1',
+    (err, results) => {
+      if (err) {
+        console.log(err)
+
+        res.status(500).send('Error retrieving data')
+      } else {
+        res.status(200).json(results)
+      }
+    }
+  )
+})
+
+router.get('/pro', (req, res) => {
+  connection.query(
+    'SELECT * from particularProducts WHERE Particular_Pro=0',
+    (err, results) => {
+      if (err) {
+        console.log(err)
+
+        res.status(500).send('Error retrieving data')
+      } else {
+        res.status(200).json(results)
+      }
+    }
+  )
+})
+
 router.get('/:id', (req, res) => {
   connection.query(
     'SELECT * from particularProducts WHERE id = ?',
