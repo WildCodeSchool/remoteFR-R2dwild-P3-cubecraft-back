@@ -48,6 +48,7 @@ router.delete('/:id', (req, res) => {
       res.status(200).send('Contact deleted successfully')
     }
   })
+  
 })
 
 module.exports = router
