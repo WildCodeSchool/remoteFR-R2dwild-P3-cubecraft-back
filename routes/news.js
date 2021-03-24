@@ -43,7 +43,7 @@ router.put('/:id', (req, res) => {
         connection.query(
           'UPDATE news SET ? WHERE id = ?',
           [newConcept, idConcept],
-          (err, results) => {
+          err => {
             if (err) {
               res.status(500).send('Error updating a concept')
             } else {
@@ -86,7 +86,7 @@ router.post('/', (req, res) => {
 
           [link, text, title, photo_id],
 
-          (err, results) => {
+          err => {
             if (err) {
               res.status(500).send('Error saving a news')
             } else {

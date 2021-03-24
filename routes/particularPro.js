@@ -4,7 +4,7 @@ const connection = require('../config')
 const router = express.Router()
 
 router.get('/', (req, res) => {
-  connection.query('SELECT * from particularProducts', (err, results) => {
+  connection.query('SELECT * from products', (err, results) => {
     if (err) {
       res.status(500).send('Error retrieving data')
     } else {
@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
 
 router.get('/part', (req, res) => {
   connection.query(
-    'SELECT * from particularProducts WHERE Particular_Pro=1',
+    'SELECT * from products WHERE Individual=1',
     (err, results) => {
       if (err) {
         console.log(err)
@@ -30,7 +30,7 @@ router.get('/part', (req, res) => {
 
 router.get('/pro', (req, res) => {
   connection.query(
-    'SELECT * from particularProducts WHERE Particular_Pro=0',
+    'SELECT * from products WHERE Individual=0',
     (err, results) => {
       if (err) {
         console.log(err)
@@ -45,7 +45,7 @@ router.get('/pro', (req, res) => {
 
 router.get('/:id', (req, res) => {
   connection.query(
-    'SELECT * from particularProducts WHERE id = ?',
+    'SELECT * from products WHERE id = ?',
     [req.params.id],
     (err, results) => {
       if (err) {
@@ -71,7 +71,7 @@ router.put('/:id', (req, res) => {
         res.status(422).send('incorrect photo id')
       else
         connection.query(
-          'UPDATE particularProducts SET ? WHERE id = ?',
+          'UPDATE products SET ? WHERE id = ?',
           [newProduct, id],
           (err, results) => {
             if (err) {
@@ -89,7 +89,7 @@ router.delete('/:id', (req, res) => {
   const idProduct = req.params.id
 
   connection.query(
-    'DELETE FROM particularProducts WHERE id = ?',
+    'DELETE FROM products WHERE id = ?',
     [idProduct],
     (err, results) => {
       if (err) {
@@ -101,21 +101,30 @@ router.delete('/:id', (req, res) => {
   )
 })
 
+// router.post('/', (req, res) => {
+//   const { CategoryName, Description, Price, Individual, photo_id } = req.body
+//   connection.query(
+//     'INSERT INTO products (categoryName, Description, Price, Individual, photo_id) VALUES(?, ?, ?, ?, ?)',
+
+//     [CategoryName, Description, Price, Individual, photo_id],
+
+//     (err, results) => {
+//       if (err) {
+//         res.status(500).send('Error saving a product')
+//       } else {
+//         res.status(200).send('Successfully saved')
+//       }
+//     }
+//   )
+// })
 router.post('/', (req, res) => {
-  const { CategoryName, Description, Price, ParticularPro, photo_id } = req.body
-  connection.query(
-    'INSERT INTO particularProducts(categoryName, Description, Price, Particular_Pro, photo_id) VALUES(?, ?, ?, ?, ?)',
-
-    [CategoryName, Description, Price, ParticularPro, photo_id],
-
-    (err, results) => {
-      if (err) {
-        res.status(500).send('Error saving a product')
-      } else {
-        res.status(200).send('Successfully saved')
-      }
+  connection.query('INSERT INTO products SET ?', req.body, err => {
+    if (err) {
+      res.status(500).send('Error saving a profile')
+    } else {
+      res.status(200).send('Successfully saved')
     }
-  )
+  })
 })
 
 module.exports = router
