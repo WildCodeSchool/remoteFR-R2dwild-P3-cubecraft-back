@@ -6,4 +6,4 @@ const particularPro = require('./particularPro')
 const photos = require('./photos')
 const upload = require('./upload')
 
-module.exports = { slider, about, news, concept, photos, particularPro , upload}
+module.exports = { slider, about, news, concept, photos, particularPro, upload }
