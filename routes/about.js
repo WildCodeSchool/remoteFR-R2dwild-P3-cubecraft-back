@@ -4,7 +4,7 @@ const connection = require('../config')
 const router = express.Router()
 
 router.get('/', (request, res) => {
-  connection.query('SELECT * from Profile', (err, results) => {
+  connection.query('SELECT * from profile', (err, results) => {
     if (err) {
       res.status(500).send(`Error retrieving data`)
     } else {
@@ -31,7 +31,7 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
   connection.query('INSERT INTO profile SET ?', req.body, err => {
     if (err) {
-      res.status(500).send('Error saving a profile')
+      res.status(500).send('Error saving a concept')
     } else {
       res.status(200).send('Successfully saved')
     }

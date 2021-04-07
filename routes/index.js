@@ -5,5 +5,6 @@ const concept = require('./concept')
 const particularPro = require('./particularPro')
 const photos = require('./photos')
 const upload = require('./upload')
+const title = require('./title')
 
-module.exports = { slider, about, news, concept, photos, particularPro, upload }
+module.exports = { slider, about, news, concept, photos, particularPro, upload, title }
