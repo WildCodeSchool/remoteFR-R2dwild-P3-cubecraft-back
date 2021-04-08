@@ -7,4 +7,13 @@ const photos = require('./photos')
 const upload = require('./upload')
 const title = require('./title')
 
-module.exports = { slider, about, news, concept, photos, particularPro, upload, title }
+module.exports = {
+  slider,
+  about,
+  news,
+  concept,
+  photos,
+  particularPro,
+  upload,
+  title
+}
