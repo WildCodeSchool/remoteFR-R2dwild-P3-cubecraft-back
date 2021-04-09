@@ -28,6 +28,21 @@ router.get('/part', (req, res) => {
   )
 })
 
+router.get('/part/detail', (req, res) => {
+  connection.query(
+    'SELECT photo.Name, CategoryName, Description, Price from products left join photo on products.photo_id=photo.id WHERE Individual=1',
+    (err, results) => {
+      if (err) {
+        console.log(err)
+
+        res.status(500).send('Error retrieving data')
+      } else {
+        res.status(200).json(results)
+      }
+    }
+  )
+})
+
 router.get('/pro', (req, res) => {
   connection.query(
     'SELECT * from products WHERE Individual=0',
@@ -35,6 +50,20 @@ router.get('/pro', (req, res) => {
       if (err) {
         console.log(err)
 
+        res.status(500).send('Error retrieving data')
+      } else {
+        res.status(200).json(results)
+      }
+    }
+  )
+})
+
+router.get('/pro/detail', (req, res) => {
+  connection.query(
+    'SELECT photo.Name, CategoryName, Description, Price from products left join photo on products.photo_id=photo.id WHERE Individual=0',
+    (err, results) => {
+      if (err) {
+        console.log(err)
         res.status(500).send('Error retrieving data')
       } else {
         res.status(200).json(results)
