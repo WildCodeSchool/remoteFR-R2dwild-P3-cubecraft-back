@@ -13,6 +13,20 @@ router.get('/', (request, res) => {
   })
 })
 
+router.get('/detail', (req, res) => {
+  connection.query(
+    'SELECT photo.Name,FirstName,LastName, JobName from profile left join photo on profile.photo_id=photo.id ',
+    (err, results) => {
+      if (err) {
+        console.log(err)
+        res.status(500).send('Error retrieving data')
+      } else {
+        res.status(200).json(results)
+      }
+    }
+  )
+})
+
 router.get('/:id', (req, res) => {
   const idUser = req.params.id
   connection.query(
