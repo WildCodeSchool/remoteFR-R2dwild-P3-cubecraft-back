@@ -19,7 +19,6 @@ router.get('/detail', (req, res) => {
     'SELECT photo.Name,Text,Title from concept left join photo on concept.photo_id=photo.id ',
     (err, results) => {
       if (err) {
-        console.log(err)
         res.status(500).send('Error retrieving data')
       } else {
         res.status(200).json(results)
