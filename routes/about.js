@@ -15,7 +15,7 @@ router.get('/', (request, res) => {
 
 router.get('/detail', (req, res) => {
   connection.query(
-    'SELECT photo.Name,FirstName,LastName, JobName from profile left join photo on profile.photo_id=photo.id ',
+    'SELECT photo.Name,FirstName,LastName, JobName, Description from profile left join photo on profile.photo_id=photo.id ',
     (err, results) => {
       if (err) {
         console.log(err)
