@@ -13,6 +13,17 @@ router.get('/', (req, res) => {
   })
 })
 
+router.get('/title', (req, res) => {
+  connection.query('SELECT Titre from divers where id = 9', (err, results) => {
+    if (err) {
+      console.log(err)
+      res.status(500).send('Error retrieving data')
+    } else {
+      res.status(200).json(results)
+    }
+  })
+})
+
 router.post('/', (req, res) => {
   connection.query('INSERT INTO contact SET ?', req.body, err => {
     if (err) {

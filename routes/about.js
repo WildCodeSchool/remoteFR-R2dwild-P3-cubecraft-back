@@ -13,6 +13,17 @@ router.get('/', (request, res) => {
   })
 })
 
+router.get('/card', (req, res) => {
+  connection.query('SELECT * from divers where id = 4', (err, results) => {
+    if (err) {
+      console.log(err)
+      res.status(500).send('Error retrieving data')
+    } else {
+      res.status(200).json(results)
+    }
+  })
+})
+
 router.get('/detail', (req, res) => {
   connection.query(
     'SELECT photo.Name,FirstName,LastName, JobName from profile left join photo on profile.photo_id=photo.id ',
@@ -68,6 +79,24 @@ router.put('/:id', (req, res) => {
     }
   )
 })
+
+router.put('/card/:id', (req, res) => {
+  const idCard = req.params.id
+  const newCard = req.body
+
+  connection.query(
+    'UPDATE divers SET ? WHERE id = ?',
+    [newCard, idCard],
+    err => {
+      if (err) {
+        res.status(500).send('Error updating a card')
+      } else {
+        res.status(200).send('Card updated successfully 🎉')
+      }
+    }
+  )
+})
+
 
 router.delete('/:id', (req, res) => {
   const idUser = req.params.id

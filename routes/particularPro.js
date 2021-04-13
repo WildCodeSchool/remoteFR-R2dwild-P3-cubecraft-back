@@ -28,6 +28,21 @@ router.get('/part', (req, res) => {
   )
 })
 
+router.get('/part/title/:id', (req, res) => {
+  connection.query(
+    'SELECT Titre from divers WHERE id = 7',
+    (err, results) => {
+      if (err) {
+        console.log(err)
+
+        res.status(500).send('Error retrieving data')
+      } else {
+        res.status(200).json(results)
+      }
+    }
+  )
+})
+
 router.get('/part/detail', (req, res) => {
   connection.query(
     'SELECT photo.Name, CategoryName, Description, Price from products left join photo on products.photo_id=photo.id WHERE Individual=1',
@@ -46,6 +61,21 @@ router.get('/part/detail', (req, res) => {
 router.get('/pro', (req, res) => {
   connection.query(
     'SELECT * from products WHERE Individual=0',
+    (err, results) => {
+      if (err) {
+        console.log(err)
+
+        res.status(500).send('Error retrieving data')
+      } else {
+        res.status(200).json(results)
+      }
+    }
+  )
+})
+
+router.get('/pro/title/:id', (req, res) => {
+  connection.query(
+    'SELECT Titre from divers WHERE id = 8',
     (err, results) => {
       if (err) {
         console.log(err)
@@ -112,6 +142,40 @@ router.put('/:id', (req, res) => {
         )
     }
   })
+})
+
+router.put('/part/title/:id', (req, res) => {
+  const idTitle = req.params.id
+  const newTitle = req.body
+
+  connection.query(
+    'UPDATE divers SET ? WHERE id = ?',
+    [newTitle, idTitle],
+    err => {
+      if (err) {
+        res.status(500).send('Error updating a title')
+      } else {
+        res.status(200).send('Title updated successfully 🎉')
+      }
+    }
+  )
+})
+
+router.put('/pro/title/:id', (req, res) => {
+  const idConcept = req.params.id
+  const newConcept = req.body
+
+  connection.query(
+    'UPDATE divers SET ? WHERE id = ?',
+    [newConcept, idConcept],
+    err => {
+      if (err) {
+        res.status(500).send('Error updating a title')
+      } else {
+        res.status(200).send('Title updated successfully 🎉')
+      }
+    }
+  )
 })
 
 router.delete('/:id', (req, res) => {
