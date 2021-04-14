@@ -6,6 +6,7 @@ const particularPro = require('./particularPro')
 const photos = require('./photos')
 const upload = require('./upload')
 const title = require('./title')
+const signin = require('./signin')
 
 module.exports = {
   slider,
@@ -15,5 +16,6 @@ module.exports = {
   photos,
   particularPro,
   upload,
-  title
+  title,
+  signin
 }
