@@ -13,15 +13,46 @@ router.get('/', (request, res) => {
   })
 })
 
-router.get('/title', (req, res) => {
-  connection.query('SELECT Titre from divers where id = 1', (err, results) => {
-    if (err) {
-      console.log(err)
-      res.status(500).send('Error retrieving data')
-    } else {
-      res.status(200).json(results)
+router.get('/cardPro/', (req, res) => {
+  connection.query(
+    'SELECT * from divers left join photo on divers.photo_id=photo.id where divers.id = 8',
+    (err, results) => {
+      if (err) {
+        console.log(err)
+        res.status(500).send('Error retrieving data')
+      } else {
+        res.status(200).json(results)
+      }
     }
-  })
+  )
+})
+
+router.get('/cardPar', (req, res) => {
+  connection.query(
+    'SELECT * from divers left join photo on divers.photo_id=photo.id where divers.id = 7',
+    (err, results) => {
+      if (err) {
+        console.log(err)
+        res.status(500).send('Error retrieving data')
+      } else {
+        res.status(200).json(results)
+      }
+    }
+  )
+})
+
+router.get('/title', (req, res) => {
+  connection.query(
+    'SELECT * from divers left join photo on divers.photo_id=photo.id where divers.id=1',
+    (err, results) => {
+      if (err) {
+        console.log(err)
+        res.status(500).send('Error retrieving data')
+      } else {
+        res.status(200).json(results)
+      }
+    }
+  )
 })
 
 router.get('/:id', (req, res) => {
@@ -83,6 +114,37 @@ router.put('/title/:id', (req, res) => {
   )
 })
 
+router.put('/cardPro/:id', (req, res) => {
+  const idSlider = req.params.id
+  const newSlider = req.body
+  connection.query(
+    'UPDATE divers SET ? WHERE id = ?',
+    [newSlider, idSlider],
+    err => {
+      if (err) {
+        res.status(500).send('Error updating a title')
+      } else {
+        res.status(200).send('Title updated successfully 🎉')
+      }
+    }
+  )
+})
+
+router.put('/cardPar/:id', (req, res) => {
+  const idSlider = req.params.id
+  const newSlider = req.body
+  connection.query(
+    'UPDATE divers SET ? WHERE id = ?',
+    [newSlider, idSlider],
+    err => {
+      if (err) {
+        res.status(500).send('Error updating a title')
+      } else {
+        res.status(200).send('Title updated successfully 🎉')
+      }
+    }
+  )
+})
 
 router.delete('/:id', (req, res) => {
   const idUser = req.params.id

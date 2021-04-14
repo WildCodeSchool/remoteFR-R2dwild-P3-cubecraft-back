@@ -14,7 +14,7 @@ router.get('/', (request, res) => {
 })
 
 router.get('/card', (req, res) => {
-  connection.query('SELECT * from divers where id = 4', (err, results) => {
+  connection.query('SELECT * from divers where id = 3', (err, results) => {
     if (err) {
       console.log(err)
       res.status(500).send('Error retrieving data')

@@ -28,19 +28,16 @@ router.get('/part', (req, res) => {
   )
 })
 
-router.get('/part/title/:id', (req, res) => {
-  connection.query(
-    'SELECT Titre from divers WHERE id = 7',
-    (err, results) => {
-      if (err) {
-        console.log(err)
+router.get('/part/title', (req, res) => {
+  connection.query('SELECT Titre from divers WHERE id = 5', (err, results) => {
+    if (err) {
+      console.log(err)
 
-        res.status(500).send('Error retrieving data')
-      } else {
-        res.status(200).json(results)
-      }
+      res.status(500).send('Error retrieving data')
+    } else {
+      res.status(200).json(results)
     }
-  )
+  })
 })
 
 router.get('/part/detail', (req, res) => {
@@ -73,19 +70,16 @@ router.get('/pro', (req, res) => {
   )
 })
 
-router.get('/pro/title/:id', (req, res) => {
-  connection.query(
-    'SELECT Titre from divers WHERE id = 8',
-    (err, results) => {
-      if (err) {
-        console.log(err)
+router.get('/pro/title', (req, res) => {
+  connection.query('SELECT Titre from divers WHERE id = 6', (err, results) => {
+    if (err) {
+      console.log(err)
 
-        res.status(500).send('Error retrieving data')
-      } else {
-        res.status(200).json(results)
-      }
+      res.status(500).send('Error retrieving data')
+    } else {
+      res.status(200).json(results)
     }
-  )
+  })
 })
 
 router.get('/pro/detail', (req, res) => {
@@ -194,22 +188,6 @@ router.delete('/:id', (req, res) => {
   )
 })
 
-// router.post('/', (req, res) => {
-//   const { CategoryName, Description, Price, Individual, photo_id } = req.body
-//   connection.query(
-//     'INSERT INTO products (categoryName, Description, Price, Individual, photo_id) VALUES(?, ?, ?, ?, ?)',
-
-//     [CategoryName, Description, Price, Individual, photo_id],
-
-//     (err, results) => {
-//       if (err) {
-//         res.status(500).send('Error saving a product')
-//       } else {
-//         res.status(200).send('Successfully saved')
-//       }
-//     }
-//   )
-// })
 router.post('/', (req, res) => {
   connection.query('INSERT INTO products SET ?', req.body, err => {
     if (err) {

@@ -27,6 +27,19 @@ router.get('/detail', (req, res) => {
   )
 })
 
+router.get('/title', (req, res) => {
+  connection.query(
+    'SELECT * from divers left join photo on divers.photo_id=photo.id where divers.id=4 ',
+    (err, results) => {
+      if (err) {
+        res.status(500).send('Error retrieving data')
+      } else {
+        res.status(200).json(results)
+      }
+    }
+  )
+})
+
 router.get('/details/:id', (req, res) => {
   const idUserMod = req.params.id
   connection.query(
@@ -100,9 +113,6 @@ router.put('/title/:id', (req, res) => {
     }
   )
 })
-
-
-
 
 router.delete('/:id', (req, res) => {
   const idUser = req.params.id
