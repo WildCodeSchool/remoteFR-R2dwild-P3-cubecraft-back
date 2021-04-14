@@ -28,6 +28,18 @@ router.get('/part', (req, res) => {
   )
 })
 
+router.get('/part/title', (req, res) => {
+  connection.query('SELECT Titre from divers WHERE id = 5', (err, results) => {
+    if (err) {
+      console.log(err)
+
+      res.status(500).send('Error retrieving data')
+    } else {
+      res.status(200).json(results)
+    }
+  })
+})
+
 router.get('/part/detail', (req, res) => {
   connection.query(
     'SELECT photo.Name, CategoryName, Description, Price from products left join photo on products.photo_id=photo.id WHERE Individual=1',
@@ -56,6 +68,18 @@ router.get('/pro', (req, res) => {
       }
     }
   )
+})
+
+router.get('/pro/title', (req, res) => {
+  connection.query('SELECT Titre from divers WHERE id = 6', (err, results) => {
+    if (err) {
+      console.log(err)
+
+      res.status(500).send('Error retrieving data')
+    } else {
+      res.status(200).json(results)
+    }
+  })
 })
 
 router.get('/pro/detail', (req, res) => {
@@ -114,6 +138,40 @@ router.put('/:id', (req, res) => {
   })
 })
 
+router.put('/part/title/:id', (req, res) => {
+  const idTitle = req.params.id
+  const newTitle = req.body
+
+  connection.query(
+    'UPDATE divers SET ? WHERE id = ?',
+    [newTitle, idTitle],
+    err => {
+      if (err) {
+        res.status(500).send('Error updating a title')
+      } else {
+        res.status(200).send('Title updated successfully 🎉')
+      }
+    }
+  )
+})
+
+router.put('/pro/title/:id', (req, res) => {
+  const idConcept = req.params.id
+  const newConcept = req.body
+
+  connection.query(
+    'UPDATE divers SET ? WHERE id = ?',
+    [newConcept, idConcept],
+    err => {
+      if (err) {
+        res.status(500).send('Error updating a title')
+      } else {
+        res.status(200).send('Title updated successfully 🎉')
+      }
+    }
+  )
+})
+
 router.delete('/:id', (req, res) => {
   const idProduct = req.params.id
 
@@ -130,22 +188,6 @@ router.delete('/:id', (req, res) => {
   )
 })
 
-// router.post('/', (req, res) => {
-//   const { CategoryName, Description, Price, Individual, photo_id } = req.body
-//   connection.query(
-//     'INSERT INTO products (categoryName, Description, Price, Individual, photo_id) VALUES(?, ?, ?, ?, ?)',
-
-//     [CategoryName, Description, Price, Individual, photo_id],
-
-//     (err, results) => {
-//       if (err) {
-//         res.status(500).send('Error saving a product')
-//       } else {
-//         res.status(200).send('Successfully saved')
-//       }
-//     }
-//   )
-// })
 router.post('/', (req, res) => {
   connection.query('INSERT INTO products SET ?', req.body, err => {
     if (err) {

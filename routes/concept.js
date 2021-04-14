@@ -27,6 +27,19 @@ router.get('/detail', (req, res) => {
   )
 })
 
+router.get('/title', (req, res) => {
+  connection.query(
+    'SELECT * from divers left join photo on divers.photo_id=photo.id where divers.id=4 ',
+    (err, results) => {
+      if (err) {
+        res.status(500).send('Error retrieving data')
+      } else {
+        res.status(200).json(results)
+      }
+    }
+  )
+})
+
 router.get('/details/:id', (req, res) => {
   const idUserMod = req.params.id
   connection.query(
@@ -79,6 +92,23 @@ router.put('/:id', (req, res) => {
         res.status(500).send('Error updating a concept')
       } else {
         res.status(200).send('Concept updated successfully 🎉')
+      }
+    }
+  )
+})
+
+router.put('/title/:id', (req, res) => {
+  const idConcept = req.params.id
+  const newConcept = req.body
+
+  connection.query(
+    'UPDATE divers SET ? WHERE id = ?',
+    [newConcept, idConcept],
+    err => {
+      if (err) {
+        res.status(500).send('Error updating a title')
+      } else {
+        res.status(200).send('Title updated successfully 🎉')
       }
     }
   )

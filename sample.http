@@ -1,0 +1,25 @@
+GET http://localhost:4242/slider/title
+content-type: application/json
+
+###
+
+POST http://localhost:4242/slider
+content-type: application/json
+
+{
+  "word": "gogo",
+  "Photo_id": 767
+}
+
+###
+
+GET http://localhost:4242/slider/cardPro
+content-type: application/json
+
+###
+PUT http://localhost:4242/slider/title/1
+content-type: application/json
+
+{
+  "Titre": "Une solution"
+}

@@ -16,5 +16,5 @@ app.use('/particularPro', routes.particularPro)
 app.use('/photos', routes.photos)
 app.use('/upload', routes.upload)
 app.use('/title', routes.title)
-
+app.use('/contact', routes.contact)
 app.listen(4242, () => console.log('Express server is running'))
