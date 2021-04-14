@@ -5,31 +5,6 @@ const bcr = require('bcrypt')
 
 const router = express.Router()
 
-// router.post('/', async (req, res) => {
-//   connection.query('SELECT * from user', (err, result) => {
-//     if (err) {
-//       res.status(400).send(err)
-//     } else {
-//       if (
-//         req.body.username === result[0].username &&
-//         bcr.compareSync(req.body.password, result[0].password)
-//       ) {
-//         const tokenUserinfo = {
-//           username: req.body.username,
-//           status: 'Administrateur'
-//         }
-
-//         const token = jwt.sign(tokenUserinfo, process.env.JWT_SECRET)
-//         res.header('Access-Control-Expose-Headers', 'x-access-token')
-//         res.set('x-access-token', token)
-//         res.status(200).send({ details: 'user connected' })
-//       } else {
-//         res.status(400).send('fail')
-//       }
-//     }
-//   })
-// })
-
 router.post('/', async (req, res) => {
   connection.query('SELECT * from user', (err, result) => {
     if (err) {
@@ -37,7 +12,7 @@ router.post('/', async (req, res) => {
     } else {
       if (
         req.body.username === result[0].username &&
-        bcr.compare(req.body.password, result[0].password)
+        bcr.compareSync(req.body.password, result[0].password)
       ) {
         const tokenUserinfo = {
           username: req.body.username,
@@ -70,16 +45,16 @@ const getToken = req => {
 router.post('/protected', (req, res) => {
   const token = getToken(req)
   const objectTests = {
-    //data appeler par la bdd
-    test: 'ok'
+    // //data appeler par la bdd
+    test : "ok"
   }
   jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
       console.log(err)
-      return res.status(200).send({ mess: 'na pas acces au donnes' })
+      return res.status(200).send({ mess: token })
     }
     console.log('decode', decoded)
-    return res.status(200).send({ mess: 'Donne du user', objectTests })
+    return res.status(200).send({ mess: 'Authorized', objectTests })
   })
 })
 
