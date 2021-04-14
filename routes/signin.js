@@ -18,7 +18,6 @@ router.post('/', async (req, res) => {
           username: req.body.username,
           status: 'Administrateur'
         }
-
         const token = jwt.sign(tokenUserinfo, process.env.JWT_SECRET)
         res.header('Access-Control-Expose-Headers', 'x-access-token')
         res.set('x-access-token', token)
