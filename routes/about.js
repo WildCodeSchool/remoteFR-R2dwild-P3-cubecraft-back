@@ -14,14 +14,17 @@ router.get('/', (request, res) => {
 })
 
 router.get('/card', (req, res) => {
-  connection.query('SELECT * from divers where id = 3', (err, results) => {
-    if (err) {
-      console.log(err)
-      res.status(500).send('Error retrieving data')
-    } else {
-      res.status(200).json(results)
+  connection.query(
+    'SELECT * from divers left join photo on divers.photo_id=photo.id where divers.id = 3',
+    (err, results) => {
+      if (err) {
+        console.log(err)
+        res.status(500).send('Error retrieving data')
+      } else {
+        res.status(200).json(results)
+      }
     }
-  })
+  )
 })
 
 router.get('/detail', (req, res) => {
@@ -96,7 +99,6 @@ router.put('/card/:id', (req, res) => {
     }
   )
 })
-
 
 router.delete('/:id', (req, res) => {
   const idUser = req.params.id
