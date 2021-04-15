@@ -6,6 +6,7 @@ const particularPro = require('./particularPro')
 const photos = require('./photos')
 const upload = require('./upload')
 const title = require('./title')
+const signin = require('./signin')
 const contact = require('./contact')
 
 module.exports = {
@@ -17,5 +18,6 @@ module.exports = {
   particularPro,
   upload,
   title,
+  signin,
   contact
 }
