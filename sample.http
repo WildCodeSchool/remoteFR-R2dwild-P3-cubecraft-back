@@ -1,4 +1,4 @@
-GET http://localhost:4242/slider/title
+GET http://localhost:4242/slider/cardPart
 content-type: application/json
 
 ###
