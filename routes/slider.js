@@ -27,7 +27,7 @@ router.get('/cardPro/', (req, res) => {
   )
 })
 
-router.get('/cardPar', (req, res) => {
+router.get('/cardPart', (req, res) => {
   connection.query(
     'SELECT * from divers left join photo on divers.photo_id=photo.id where divers.id = 7',
     (err, results) => {
@@ -130,7 +130,7 @@ router.put('/cardPro/:id', (req, res) => {
   )
 })
 
-router.put('/cardPar/:id', (req, res) => {
+router.put('/cardPart/:id', (req, res) => {
   const idSlider = req.params.id
   const newSlider = req.body
   connection.query(
