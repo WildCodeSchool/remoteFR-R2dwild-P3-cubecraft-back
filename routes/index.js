@@ -7,6 +7,7 @@ const photos = require('./photos')
 const upload = require('./upload')
 const title = require('./title')
 const signin = require('./signin')
+const contact = require('./contact')
 
 module.exports = {
   slider,
@@ -18,4 +19,5 @@ module.exports = {
   upload,
   title,
   signin
+  contact
 }
