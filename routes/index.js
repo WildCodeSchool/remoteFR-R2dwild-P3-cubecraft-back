@@ -18,6 +18,6 @@ module.exports = {
   particularPro,
   upload,
   title,
-  signin
+  signin,
   contact
 }
