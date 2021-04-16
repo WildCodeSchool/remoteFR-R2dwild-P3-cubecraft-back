@@ -1,19 +1,20 @@
-GET http://localhost:4242/slider/cardPart
+GET http://localhost:4242/concept/detail
 content-type: application/json
 
 ###
 
-POST http://localhost:4242/slider
+POST http://localhost:4242/encart
 content-type: application/json
 
 {
-  "word": "gogo",
-  "Photo_id": 767
+  "Title":"test 1",
+  "Text":"test",
+  "Photo_id": 779
 }
 
 ###
 
-GET http://localhost:4242/slider/cardPro
+DELETE http://localhost:4242/encart/2
 content-type: application/json
 
 ###
