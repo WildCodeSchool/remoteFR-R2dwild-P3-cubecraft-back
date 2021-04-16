@@ -2,6 +2,7 @@ const slider = require('./slider')
 const about = require('./about')
 const news = require('./news')
 const concept = require('./concept')
+const encart = require('./encart')
 const particularPro = require('./particularPro')
 const photos = require('./photos')
 const upload = require('./upload')
@@ -12,6 +13,7 @@ const contact = require('./contact')
 module.exports = {
   slider,
   about,
+  encart,
   news,
   concept,
   photos,
