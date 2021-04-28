@@ -1,0 +1,26 @@
+GET http://localhost:4242/concept/detail
+content-type: application/json
+
+###
+
+POST http://localhost:4242/encart
+content-type: application/json
+
+{
+  "Title":"test 1",
+  "Text":"test",
+  "Photo_id": 779
+}
+
+###
+
+DELETE http://localhost:4242/encart/2
+content-type: application/json
+
+###
+PUT http://localhost:4242/slider/title/1
+content-type: application/json
+
+{
+  "Titre": "Une solution"
+}

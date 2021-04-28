@@ -1,6 +1,6 @@
 const express = require('express')
 const connection = require('../config')
-
+const fs = require('fs')
 const router = express.Router()
 
 router.get('/', (req, res) => {
@@ -39,14 +39,23 @@ router.post('/', (req, res) => {
   })
 })
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id/:name', (req, res) => {
   const idPhoto = req.params.id
-
+  const namePhoto = req.params.name
   connection.query('DELETE FROM photo WHERE id = ?', [idPhoto], err => {
     if (err) {
       res.status(500).send('Error deleted a photo')
     } else {
       res.status(200).send('Photo deleted successfully 🎉')
+      fs.unlink(
+        `../remoteFR-R2dwild-P3-cubecraft-front/public/images/${namePhoto}`,
+        err => {
+          if (err) {
+            throw err
+          }
+          console.log('File is deleted.')
+        }
+      )
     }
   })
 })

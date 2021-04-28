@@ -7,7 +7,7 @@ const storage = multer.diskStorage({
     cb(null, '../remoteFR-R2dwild-P3-cubecraft-front/public/images')
   },
   filename: function (req, file, cb) {
-    cb(null, file.originalname)
+    cb(null, file.originalname.replace(/ /g, ''))
   }
 })
 var upload = multer({ storage: storage })
